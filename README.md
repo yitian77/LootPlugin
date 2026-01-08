@@ -5,6 +5,7 @@
 [![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 
 一个功能完善的 Minecraft 搜刮方块插件，支持进度条交互、共享容器和智能战利品生成系统。
+## !!!
 
 ## ✨ 核心特性
 
