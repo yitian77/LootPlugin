@@ -134,5 +134,3 @@ public void onLootOpen(LootOpenEvent event) {
 }
 ```
 
-![f2133b3f3ff464abfd0770cce6990caf](https://github.com/user-att![微信图片_20260109014847_2_56](https://github.com/user-attachments/assets/fa70500e-c432-4d63-a429-b39fdf73668e)
-achments/assets/3c9e9399-4fa0-4b6e-af70-243eaf85c735)
