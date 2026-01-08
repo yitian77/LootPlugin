@@ -58,22 +58,6 @@
 | `/setrefreshtime` | `lootplugin.setrefreshtime` | 设置刷新冷却时间 | `/setrefreshtime 300` |
 | `/reloadlootplugin` | `lootplugin.reloadlootplugin` | 重载插件配置 | `/reloadlootplugin` |
 
-### 操作流程示例
-
-#### 1. 创建搜刮方块
-```
-# 准星对着方块输入指令
-/addlootblock
-# 成功：方块已配置为搜刮方块
-```
-### 2. 添加战利品
-```
-# 手持钻石，设置最大5个，30%概率
-/addlootitem 5 30
-
-# 手持绿宝石，设置最大3个，15%概率  
-/addlootitem 3 15
-```
 ### ⚙️ 详细配置
 ```
 config.yml
@@ -116,6 +100,7 @@ messages:
   no_loot_block_found: "&c没有找到已添加的搜刮方块。"
   loot_block_added: "&a搜刮方块 &e%s&a 已成功添加。"
   cannot_add_empty_item: "&c无法添加空手物品，请手持有效物品。"
+  loot_block_removed: "§a搜刮方块 §e%s§a 已成功删除！"
 ```
 ## 🔧 开发者指南
 API 使用示例
@@ -132,5 +117,7 @@ public void onLootOpen(LootOpenEvent event) {
     // 处理自定义逻辑
 }
 ```
+![求赞助](https://github.com/yitian77/LootPlugin/blob/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260109014846_1_56.jpg)
+![求赞助](https://github.com/yitian77/LootPlugin/blob/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260109014847_1_56.jpg)
 
 
