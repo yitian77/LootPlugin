@@ -1,0 +1,28 @@
+# 主配置文件，用于管理搜刮方块的ID
+# 每个搜刮方块都有一个唯一的ID
+loot-blocks:
+  MINECRAFT:DIAMOND_BLOCK:
+    name: "钻石方块搜刮"
+    rows: 3
+  MINECRAFT:GOLD_BLOCK:
+    name: "金方块搜刮"
+    rows: 3
+
+# 默认音效配置
+sounds:
+  start: ENTITY_PLAYER_LEVELUP
+  end: ENTITY_PLAYER_LEVELUP
+  loading: BLOCK_ANVIL_LAND
+  container_open: BLOCK_CHEST_OPEN       # 打开容器时
+  container_close: BLOCK_CHEST_CLOSE     # 关闭容器时
+  volumes:
+    progress: 0.5    # 进度条相关音效音量
+    container: 0.3   # 容器交互音效音量
+# 默认进度条加载界面设置
+progress-gui:
+  name: "加载中..."
+  rows: 1
+
+  # 音量设置 (0.0-1.0)
+
+
