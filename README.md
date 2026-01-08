@@ -164,3 +164,17 @@ sounds:
 战利品生成异常
 
 文件保存失败
+
+
+📁 文件结构
+text
+LootPlugin/
+├── LootPlugin.jar                    # 插件主文件
+├── config.yml                        # 主配置文件
+├── messages_zh.yml                   # 简体中文语言文件
+├── plugin.yml                        # 插件描述文件
+└── lootblocks/                       # 战利品方块数据
+    ├── MINECRAFT_DIAMOND_BLOCK.yml   # 钻石块配置
+    └── MINECRAFT_GOLD_BLOCK.yml      # 金块配置
+
+
