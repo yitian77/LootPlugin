@@ -133,8 +133,9 @@ public void onLootOpen(LootOpenEvent event) {
     // 处理自定义逻辑
 }
 ```
+# 求赞助
+![求赞助](https://github.com/yitian77/LootPlugin/blob/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260109014847_2_56.jpg)
 ![求赞助](https://github.com/yitian77/LootPlugin/blob/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260109014846_1_56.jpg)
-![求赞助]([https://github.com/yitian77/LootPlugin/blob/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260109014847_2_56.jpg)
 
 
 
