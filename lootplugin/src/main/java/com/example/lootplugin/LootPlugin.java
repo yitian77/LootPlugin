@@ -2,10 +2,7 @@ package com.example.lootplugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
@@ -29,6 +26,7 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -221,10 +219,12 @@ public class LootPlugin extends JavaPlugin implements Listener {
 
     private void startProgressBar(final Player player, final LootBlock lootBlock, final String blockLocation) {
         final Inventory progressGui = Bukkit.createInventory(null, this.progressGuiRows * 9, this.progressGuiName);
+        final int totalRows = this.progressGuiRows;
+        final int slotsPerRow = 9;
 
-        // 初始化进度条（红色玻璃板）
+        // 初始化所有格子为红色
         for (int i = 0; i < progressGui.getSize(); i++) {
-            progressGui.setItem(i, new ItemStack(Material.RED_STAINED_GLASS_PANE));
+            progressGui.setItem(i, createProgressItem(0, false)); // 初始0%，红色
         }
 
         player.openInventory(progressGui);
@@ -232,39 +232,40 @@ public class LootPlugin extends JavaPlugin implements Listener {
 
         new BukkitRunnable() {
             private int timeRemaining = lootBlock.getProgressBarTime() * 20;
-            private int totalSlots = progressGui.getSize();
-            private int updateInterval = Math.max(1, timeRemaining / totalSlots);
-            private int currentSlot = 0;
+            private final int totalTicks = timeRemaining;
 
             @Override
             public void run() {
-                // 检查玩家是否关闭界面
                 if (!player.getOpenInventory().getTitle().equals(progressGuiName)) {
                     this.cancel();
                     return;
                 }
 
-                // 更新进度条
-                if (timeRemaining % updateInterval == 0 && currentSlot < totalSlots) {
-                    progressGui.setItem(currentSlot, new ItemStack(Material.GREEN_STAINED_GLASS_PANE));
-                    player.updateInventory();
-                    currentSlot++;
+                int percentage = Math.min(100, 100 - (timeRemaining * 100 / totalTicks));
+
+                int slotsPerRowToFill = (percentage * slotsPerRow) / 100;
+
+                for (int row = 0; row < totalRows; row++) {
+                    for (int col = 0; col < slotsPerRow; col++) {
+                        int slot = row * slotsPerRow + col;
+                        boolean isFilled = col < slotsPerRowToFill;
+                        progressGui.setItem(slot, createProgressItem(percentage, isFilled));
+                    }
                 }
 
-                // 每秒播放加载音效
+                player.updateInventory();
+
+                // 音效
                 if (timeRemaining % 20 == 0) {
                     player.playSound(player.getLocation(), loadingSound, 0.3F, 1.0F);
                 }
 
-                // 进度完成
+                // 完成
                 if (timeRemaining <= 0) {
                     player.playSound(player.getLocation(), endSound, 0.5F, 1.0F);
                     player.closeInventory();
-
-                    // 刷新战利品
                     lootBlock.refreshLoot(blockLocation);
 
-                    // 延迟后打开界面
                     Bukkit.getScheduler().runTaskLater(LootPlugin.this, () -> {
                         player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 0.3F, 1.0F);
                         lootBlock.open(player, blockLocation);
@@ -275,7 +276,60 @@ public class LootPlugin extends JavaPlugin implements Listener {
 
                 timeRemaining--;
             }
-        }.runTaskTimer(this, 0L, 1L);
+        }.runTaskTimer(this, 0L, 1L); // 每tick更新一次，确保实时性
+    }
+
+    // 创建进度条物品（简洁版）
+    private ItemStack createProgressItem(int percentage, boolean isFilled) {
+        ItemStack item;
+
+        if (isFilled) {
+            item = new ItemStack(Material.GREEN_STAINED_GLASS_PANE); // 绿色：已填充
+        } else {
+            item = new ItemStack(Material.RED_STAINED_GLASS_PANE);   // 红色：未填充
+        }
+
+        ItemMeta meta = item.getItemMeta();
+
+        // 设置显示名称（实时百分比）
+        String color = isFilled ? "§a" : "§c";
+        meta.setDisplayName(color + "进度: §e" + percentage + "%");
+
+        // 设置Lore（只显示进度条）
+        List<String> lore = new ArrayList<>();
+
+        // 实时进度条
+        String progressBar = createProgressBar(percentage, 20);
+        lore.add("§7" + progressBar);
+
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+
+        return item;
+    }
+
+    // 创建文本进度条
+    private String createProgressBar(int percentage, int length) {
+        int filledLength = (percentage * length) / 100;
+        int emptyLength = length - filledLength;
+
+        StringBuilder bar = new StringBuilder("§8[");
+
+        // 填充部分：绿色
+        bar.append("§a");
+        for (int i = 0; i < filledLength; i++) {
+            bar.append("█");
+        }
+
+        // 空余部分：灰色
+        bar.append("§7");
+        for (int i = 0; i < emptyLength; i++) {
+            bar.append("█");
+        }
+
+        bar.append("§8]");
+
+        return bar.toString();
     }
 
 
