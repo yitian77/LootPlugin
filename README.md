@@ -51,7 +51,7 @@
 
 | 命令 | 权限节点 | 描述 | 示例 |
 |------|----------|------|------|
-| `/addlootblock` | `lootplugin.addlootblock` | 添加新的搜刮方块 | 右键目标方块 |
+| `/addlootblock` | `lootplugin.addlootblock` | 添加新的搜刮方块 | 准星对着目标方块输入指令 |
 | `/addlootitem` | `lootplugin.addlootitem` | 向方块添加战利品 | `/addlootitem 5 30` |
 | `/setprogresstime` | `lootplugin.setprogresstime` | 设置进度条时间 | `/setprogresstime 3` |
 | `/setrefreshtime` | `lootplugin.setrefreshtime` | 设置刷新冷却时间 | `/setrefreshtime 300` |
