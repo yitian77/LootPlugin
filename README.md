@@ -119,5 +119,6 @@ public void onLootOpen(LootOpenEvent event) {
     // 处理自定义逻辑
 }
 ```
+## 💰  赞助作者
 ![求赞助](https://github.com/yitian77/LootPlugin/blob/main/2.jpg)
 ![求赞助](https://github.com/yitian77/LootPlugin/blob/main/1.jpg)
