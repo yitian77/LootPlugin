@@ -5,7 +5,6 @@
 [![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 
 一个功能完善的 Minecraft 搜刮方块插件，支持进度条交互、共享容器和智能战利品生成系统。
-###  ❗  免费分享 禁止出售或以其他形式盈利
 
 ## ✨ 核心特性
 
@@ -36,7 +35,7 @@
 ## 📦 快速开始
 
 ### 环境要求
-- **Minecraft 服务器**：Spigot / Paper 1.16 或更高(其他版本尚未测试，理论上1.16以上可以运行)
+- **Minecraft 服务器**：Spigot / Paper 1.16 或更高
 - **Java 版本**：Java 8 或更高版本
 - **权限**：玩家需要对应权限才能使用命令
 
@@ -52,28 +51,13 @@
 
 | 命令 | 权限节点 | 描述 | 示例 |
 |------|----------|------|------|
-| `/addlootblock` | `lootplugin.addlootblock` | 添加新的搜刮方块 | 准星对着目标方块输入指令 |
+| `/addlootblock` | `lootplugin.addlootblock` | 添加新的搜刮方块 | 准星对着目标方块 |
+| `/addlootblock` | `lootplugin.removelootblock` | 删除搜刮方块 | 准星对着目标方块 |
 | `/addlootitem` | `lootplugin.addlootitem` | 向方块添加战利品 | `/addlootitem 5 30` |
 | `/setprogresstime` | `lootplugin.setprogresstime` | 设置进度条时间 | `/setprogresstime 3` |
 | `/setrefreshtime` | `lootplugin.setrefreshtime` | 设置刷新冷却时间 | `/setrefreshtime 300` |
 | `/reloadlootplugin` | `lootplugin.reloadlootplugin` | 重载插件配置 | `/reloadlootplugin` |
 
-### 操作流程示例
-
-#### 1. 创建搜刮方块
-```
-# 准星对着方块输入指令
-/addlootblock
-# 成功：方块已配置为搜刮方块
-```
-### 2. 添加战利品
-```
-# 手持钻石，设置最大5个，30%概率
-/addlootitem 5 30
-
-# 手持绿宝石，设置最大3个，15%概率  
-/addlootitem 3 15
-```
 ### ⚙️ 详细配置
 ```
 config.yml
@@ -116,6 +100,7 @@ messages:
   no_loot_block_found: "&c没有找到已添加的搜刮方块。"
   loot_block_added: "&a搜刮方块 &e%s&a 已成功添加。"
   cannot_add_empty_item: "&c无法添加空手物品，请手持有效物品。"
+  loot_block_removed: "§a搜刮方块 §e%s§a 已成功删除！"
 ```
 ## 🔧 开发者指南
 API 使用示例
@@ -125,7 +110,6 @@ LootPlugin plugin = (LootPlugin) Bukkit.getPluginManager().getPlugin("LootPlugin
 
 // 访问战利品方块数据
 Map<String, LootBlock> allBlocks = plugin.getLootBlocks();
-![f2133b3f3ff464abfd0770cce6990caf](https://github.com/user-attachments/assets/ddfcf934-4951-4cda-bcd1-b7afe884c8e3)
 
 // 自定义事件监听
 @EventHandler
@@ -133,9 +117,5 @@ public void onLootOpen(LootOpenEvent event) {
     // 处理自定义逻辑
 }
 ```
-# 求赞助
 ![求赞助](https://github.com/yitian77/LootPlugin/blob/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260109014847_2_56.jpg)
 ![求赞助](https://github.com/yitian77/LootPlugin/blob/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260109014846_1_56.jpg)
-
-
-
