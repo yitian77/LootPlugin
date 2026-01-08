@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
+
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -28,6 +31,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+
 
 public class LootPlugin extends JavaPlugin implements Listener {
     private final Map<String, LootBlock> lootBlocks = new HashMap();
@@ -61,6 +65,13 @@ public class LootPlugin extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this);
         // 添加：调用启动提示方法
         logStartupMessage();
+        int pluginId = 28773;
+        Metrics metrics = new Metrics(this, pluginId);
+
+        // Optional: Add custom charts
+        metrics.addCustomChart(
+                new SimplePie("chart_id", () -> "My value")
+        );
     }
     private void logStartupMessage() {
         ConsoleCommandSender console = Bukkit.getConsoleSender();
